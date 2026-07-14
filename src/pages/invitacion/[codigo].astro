@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Cover from '@/components/Cover.astro';
-import PhotoPlaceholder from '@/components/PhotoPlaceholder.astro';
 import Countdown from '@/components/Countdown';
 import EventDetails from '@/components/EventDetails.astro';
 import MapButton from '@/components/MapButton.astro';
@@ -12,6 +11,8 @@ import GiftsSection from '@/components/GiftsSection.astro';
 import RsvpForm from '@/components/RsvpForm';
 import ScrollHint from '@/components/ScrollHint';
 import ScrollReveal from '@/components/ScrollReveal.astro';
+import SectionDecorations from '@/components/SectionDecorations.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
 import { getAllVariantCodes, getVariantByCode, weddingConfig } from '@/config/wedding';
 
 export function getStaticPaths() {
@@ -36,7 +37,6 @@ const {
   gifts,
   dressCode,
   cover,
-  photo,
   seo,
 } = weddingConfig;
 const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
@@ -55,14 +55,13 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
     <ScrollHint client:load targetId="detalle" />
 
     <div id="detalle">
-      <PhotoPlaceholder src={photo.src} alt={photo.alt} />
-
       <section
-        class="reveal bg-white px-6 py-20 sm:py-28"
+        class="section-decorated reveal bg-white px-6 py-20 sm:py-28"
         aria-labelledby="cuenta-regresiva-titulo"
       >
-        <div class="mx-auto flex max-w-xl flex-col items-center gap-8 text-center">
-          <h2 id="cuenta-regresiva-titulo" class="section-title">Cuenta regresiva</h2>
+        <SectionDecorations corner="bottom-left" />
+        <div class="relative z-10 mx-auto flex max-w-xl flex-col items-center gap-8 text-center">
+          <SectionHeading id="cuenta-regresiva-titulo" title="Cuenta regresiva" />
           <Countdown client:load targetISO={eventDateISO} />
         </div>
       </section>
@@ -104,25 +103,28 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
 
       <section
         class:list={[
-          'reveal flex flex-col items-center gap-8 px-6 py-20 pb-24 text-center sm:py-28',
+          'section-decorated reveal flex flex-col items-center gap-8 px-6 py-20 pb-24 text-center sm:py-28',
           rsvpSurfaceClass,
         ]}
         aria-labelledby="rsvp-titulo"
       >
-        <div class="flex flex-col items-center gap-3">
-          <h2 id="rsvp-titulo" class="section-title">Te esperamos</h2>
+        <SectionDecorations corner="bottom-left" />
+        <div class="relative z-10 flex flex-col items-center gap-3">
+          <SectionHeading id="rsvp-titulo" title="Te esperamos" />
           <p class="max-w-md text-base text-ink-600">
-            Completá el formulario para confirmar tu asistencia. Te vamos a redirigir a WhatsApp
-            con el mensaje ya armado.
+            Completá el formulario para confirmar tu asistencia. Te vamos a redirigir a WhatsApp con
+            el mensaje ya armado.
           </p>
         </div>
-        <RsvpForm
-          client:visible
-          phoneNumber={whatsapp.phoneNumber}
-          partnerOne={coupleNames.partnerOne}
-          partnerTwo={coupleNames.partnerTwo}
-          referenceCode={variant.code}
-        />
+        <div class="relative z-10">
+          <RsvpForm
+            client:visible
+            phoneNumber={whatsapp.phoneNumber}
+            partnerOne={coupleNames.partnerOne}
+            partnerTwo={coupleNames.partnerTwo}
+            referenceCode={variant.code}
+          />
+        </div>
       </section>
 
       <GiftsSection

@@ -103,8 +103,8 @@ export interface WeddingConfig {
  */
 const baseConfig: WeddingConfig = {
   coupleNames: {
-    partnerOne: 'Lautaro',
-    partnerTwo: 'Belén',
+    partnerOne: 'Belén',
+    partnerTwo: 'Lautaro',
   },
   eventDateISO: '2027-02-27T21:30:00-03:00',
   eventTimeTitle: 'Recepción y Ceremonia Civil',
@@ -174,8 +174,8 @@ const baseConfig: WeddingConfig = {
     alt: 'Fotografía de la pareja (próximamente)',
   },
   seo: {
-    title: 'Lautaro & Belén — Nos casamos',
-    description: 'Acompañanos a celebrar el casamiento de Lautaro y Belén. Toda la información del evento acá.',
+    title: 'Belén & Lautaro — Nos casamos',
+    description: 'Acompañanos a celebrar el casamiento de Belén y Lautaro. Toda la información del evento acá.',
     ogImage: '/og-image.svg',
   },
 };

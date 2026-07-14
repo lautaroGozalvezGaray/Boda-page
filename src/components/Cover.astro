@@ -1,5 +1,6 @@
 ---
 import { formatLongDate } from '@/utils/formatDate';
+import SectionDecorations from '@/components/SectionDecorations.astro';
 
 interface Props {
   kicker: string;
@@ -15,35 +16,40 @@ const dateLabel = formatLongDate(eventDateISO);
 ---
 
 <header
-  class="relative flex min-h-[100svh] flex-col items-center justify-center gap-10 overflow-hidden bg-gradient-to-b from-sand-100 via-sand-50 to-blush-50 px-6 py-16 text-center sm:gap-12"
+  class="section-decorated relative flex min-h-[100svh] flex-col items-center justify-center gap-10 bg-gradient-to-b from-sand-100 via-sand-50 to-blush-50 px-6 py-16 text-center sm:gap-12"
 >
   <div
     class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-blush-200/25 blur-3xl"
     aria-hidden="true"
   >
   </div>
+
+  <SectionDecorations corner="top-right" divider={false} />
   <div
     class="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-sand-300/25 blur-3xl"
     aria-hidden="true"
   >
   </div>
 
-  <div class="flex animate-fade-in flex-col items-center gap-5">
-    <p class="font-accent text-lg italic text-blush-500 sm:text-xl">{kicker}</p>
-    <span class="h-px w-12 bg-blush-300" aria-hidden="true"></span>
+  <div class="relative z-10 flex animate-fade-in flex-col items-center gap-6">
+    <p class="font-accent text-2xl italic text-blush-500 sm:text-3xl">{kicker}</p>
+    <span class="h-px w-16 bg-blush-300" aria-hidden="true"></span>
     <h1
-      class="font-serif text-5xl font-medium leading-[1.1] tracking-tight text-ink-800 sm:text-6xl md:text-7xl"
+      class="font-serif text-7xl font-medium leading-[0.95] tracking-[-0.03em] text-ink-800 sm:text-8xl md:text-9xl"
     >
-      {partnerOne}
-      <span class="mx-1 text-blush-400">&amp;</span>
-      {partnerTwo}
+      <span class="block sm:hidden">{partnerOne}</span>
+      <span class="my-1 block text-[0.72em] leading-[0.65] text-blush-400 sm:hidden">&amp;</span>
+      <span class="block sm:hidden">{partnerTwo}</span>
+      <span class="hidden sm:inline"
+        >{partnerOne} <span class="text-blush-400">&amp;</span> {partnerTwo}</span
+      >
     </h1>
-    <p class="mt-1 text-sm capitalize tracking-wide text-ink-500 sm:text-base">{dateLabel}</p>
+    <p class="mt-2 text-base tracking-wide text-ink-500 sm:text-lg">{dateLabel}</p>
   </div>
 
   <a
     href={`#${ctaTargetId}`}
-    class="btn-secondary animate-slide-up px-9 py-3 backdrop-blur-sm"
+    class="btn-secondary relative z-10 animate-slide-up px-11 py-4 text-base backdrop-blur-sm"
     style="animation-delay: 0.3s"
   >
     {ctaLabel}

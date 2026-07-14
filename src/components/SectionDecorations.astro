@@ -1,0 +1,80 @@
+---
+interface Props {
+  corner: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  divider?: boolean;
+}
+
+const { corner, divider = true } = Astro.props;
+const cornerClasses = {
+  'top-left': 'section-flourish--top-left',
+  'top-right': 'section-flourish--top-right',
+  'bottom-left': 'section-flourish--bottom-left',
+  'bottom-right': 'section-flourish--bottom-right',
+} satisfies Record<Props['corner'], string>;
+const oppositeCorner = {
+  'top-left': 'bottom-right',
+  'top-right': 'bottom-left',
+  'bottom-left': 'top-right',
+  'bottom-right': 'top-left',
+} satisfies Record<typeof corner, Props['corner']>;
+---
+
+<svg
+  class:list={['section-flourish', 'section-flourish--primary', cornerClasses[corner]]}
+  viewBox="0 0 300 300"
+  fill="none"
+  aria-hidden="true"
+>
+  <path d="M16 284C58 215 104 162 176 91c30-30 64-52 108-68"></path>
+  <path d="M30 286C80 247 125 219 183 192c43-20 75-54 101-100"></path>
+  <path d="M72 216c-4-26 5-47 30-62 3 27-7 48-30 62Z"></path>
+  <path d="M119 164c-4-26 6-47 31-63 3 27-7 48-31 63Z"></path>
+  <path d="M170 113c-3-25 7-45 31-60 3 26-8 46-31 60Z"></path>
+  <path d="M89 223c24 2 42 15 52 39-25-2-43-15-52-39Z"></path>
+  <path d="M138 170c24 2 42 15 52 39-25-2-43-15-52-39Z"></path>
+  <path d="M189 119c23 2 40 14 49 37-24-2-41-15-49-37Z"></path>
+  <path d="M164 199c-2-21 7-37 27-48 1 21-8 37-27 48Z"></path>
+  <path d="M202 166c20 1 35 11 44 30-20-1-35-11-44-30Z"></path>
+  <path d="M235 94c7-8 16-10 26-7-5 10-14 14-26 7Z"></path>
+  <path d="M231 88c6-8 15-10 24-8-4 10-13 14-24 8Z"></path>
+  <circle cx="224" cy="77" r="4"></circle>
+  <circle cx="245" cy="57" r="2.7"></circle>
+  <circle cx="266" cy="42" r="2"></circle>
+  <circle cx="278" cy="31" r="1.5"></circle>
+  <path d="M260 69c7-9 16-11 26-7-5 11-15 14-26 7Z"></path>
+</svg>
+
+<svg
+  class:list={[
+    'section-flourish',
+    'section-flourish--secondary',
+    cornerClasses[oppositeCorner[corner]],
+  ]}
+  viewBox="0 0 300 300"
+  fill="none"
+  aria-hidden="true"
+>
+  <path d="M16 284C58 215 104 162 176 91c30-30 64-52 108-68"></path>
+  <path d="M30 286C80 247 125 219 183 192c43-20 75-54 101-100"></path>
+  <path d="M72 216c-4-26 5-47 30-62 3 27-7 48-30 62Z"></path>
+  <path d="M119 164c-4-26 6-47 31-63 3 27-7 48-31 63Z"></path>
+  <path d="M170 113c-3-25 7-45 31-60 3 26-8 46-31 60Z"></path>
+  <path d="M89 223c24 2 42 15 52 39-25-2-43-15-52-39Z"></path>
+  <path d="M138 170c24 2 42 15 52 39-25-2-43-15-52-39Z"></path>
+  <path d="M189 119c23 2 40 14 49 37-24-2-41-15-49-37Z"></path>
+  <circle cx="224" cy="77" r="4"></circle>
+  <circle cx="245" cy="57" r="2.7"></circle>
+  <circle cx="266" cy="42" r="2"></circle>
+</svg>
+
+{
+  divider && (
+    <div class="section-divider" aria-hidden="true">
+      <span />
+      <svg viewBox="0 0 12 12" fill="none">
+        <path d="m6 1.5 2 4.5-2 4.5L4 6l2-4.5Z" stroke="currentColor" />
+      </svg>
+      <span />
+    </div>
+  )
+}

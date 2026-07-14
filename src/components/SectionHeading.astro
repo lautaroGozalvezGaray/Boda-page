@@ -1,0 +1,20 @@
+---
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+---
+
+<div class="section-heading">
+  <h2 id={id} class="section-title">{title}</h2>
+  <span class="section-heading-ornament" aria-hidden="true">
+    <span></span>
+    <svg viewBox="0 0 16 16" fill="none">
+      <path d="M8 2.5 10.1 8 8 13.5 5.9 8 8 2.5Z" stroke="currentColor" stroke-width="1"></path>
+      <path d="M2.5 8h11" stroke="currentColor" stroke-width="1"></path>
+    </svg>
+    <span></span>
+  </span>
+</div>

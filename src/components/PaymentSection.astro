@@ -2,6 +2,8 @@
 import type { EntryType, PricingPeriod } from '@/config/wedding';
 import PricingTable from '@/components/PricingTable.astro';
 import CopyButton from '@/components/CopyButton';
+import SectionDecorations from '@/components/SectionDecorations.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
 
 interface Props {
   entryType: EntryType;
@@ -19,12 +21,13 @@ const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accoun
 ---
 
 <section
-  class="reveal bg-sand-50/60 px-6 py-20 sm:py-28"
+  class="section-decorated reveal bg-sand-50/60 px-6 py-20 sm:py-28"
   aria-labelledby="pago-titulo"
 >
-  <div class="mx-auto flex max-w-2xl flex-col items-center gap-8 text-center">
+  <SectionDecorations corner="top-right" />
+  <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-8 text-center">
     <div class="flex flex-col items-center gap-3">
-      <h2 id="pago-titulo" class="section-title">Valores de la entrada</h2>
+      <SectionHeading id="pago-titulo" title="Valores de la entrada" />
       <p class="max-w-md text-base leading-relaxed text-ink-600">
         Los valores varían según la fecha de pago. A continuación se destaca el valor vigente.
       </p>
@@ -39,7 +42,12 @@ const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accoun
         <span class="section-eyebrow">Alias</span>
         <span class="break-all font-serif text-2xl text-ink-800">{alias}</span>
       </div>
-      <CopyButton client:visible textToCopy={alias} label="Copiar alias" successMessage="Alias copiado." />
+      <CopyButton
+        client:visible
+        textToCopy={alias}
+        label="Copiar alias"
+        successMessage="Alias copiado."
+      />
 
       <dl class="grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
         <div class="flex flex-col gap-1">
@@ -63,7 +71,12 @@ const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accoun
       <div class="flex flex-col gap-2">
         <span class="section-eyebrow">CBU</span>
         <span class="break-all font-mono text-sm text-ink-800">{cbu}</span>
-        <CopyButton client:visible textToCopy={cbu} label="Copiar CBU" successMessage="CBU copiado." />
+        <CopyButton
+          client:visible
+          textToCopy={cbu}
+          label="Copiar CBU"
+          successMessage="CBU copiado."
+        />
       </div>
     </div>
   </div>

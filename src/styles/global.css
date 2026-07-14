@@ -27,7 +27,7 @@
 
 @layer components {
   .card-surface {
-    @apply rounded-2xl border border-sand-200/70 bg-white/80 shadow-sm transition-all duration-300;
+    @apply rounded-2xl border border-sand-200/80 bg-white shadow-[0_8px_24px_rgba(79,72,63,0.06)] transition-all duration-300;
   }
 
   .card-surface-hover {
@@ -39,11 +39,11 @@
   }
 
   .btn-primary {
-    @apply btn-base bg-blush-600 text-white shadow-sm hover:-translate-y-0.5 hover:bg-blush-700 hover:shadow-md active:translate-y-0 active:bg-blush-800;
+    @apply btn-base border border-blush-700/40 bg-blush-600 text-white shadow-[0_5px_14px_rgba(167,95,73,0.2)] hover:-translate-y-0.5 hover:bg-blush-700 hover:shadow-md active:translate-y-0 active:bg-blush-800;
   }
 
   .btn-secondary {
-    @apply btn-base border border-sand-300 bg-white text-ink-700 shadow-sm hover:-translate-y-0.5 hover:border-blush-400 hover:text-blush-700 hover:shadow-md active:translate-y-0;
+    @apply btn-base border border-sand-300/90 bg-white/90 text-ink-700 shadow-[0_4px_12px_rgba(79,72,63,0.07)] hover:-translate-y-0.5 hover:border-blush-400 hover:bg-blush-50/50 hover:text-blush-700 hover:shadow-md active:translate-y-0;
   }
 
   .btn-ghost {
@@ -51,11 +51,84 @@
   }
 
   .section-title {
-    @apply font-serif text-3xl text-ink-800 sm:text-4xl;
+    @apply font-serif text-4xl font-medium leading-none tracking-[-0.02em] text-ink-800 sm:text-5xl;
   }
 
   .section-eyebrow {
     @apply text-xs uppercase tracking-[0.25em] text-blush-600;
+  }
+
+  .section-decorated {
+    @apply relative isolate overflow-hidden;
+  }
+
+  .section-heading {
+    @apply flex flex-col items-center gap-3 text-center;
+  }
+
+  .section-heading-ornament {
+    @apply flex items-center gap-3 text-blush-500;
+  }
+
+  .section-heading-ornament span {
+    @apply h-px w-14 bg-sand-400 sm:w-20;
+  }
+
+  .section-heading-ornament svg {
+    @apply h-4 w-4;
+  }
+
+  .section-flourish {
+    @apply pointer-events-none absolute z-0 fill-none stroke-current;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .section-flourish--primary {
+    @apply h-60 w-60 text-blush-600/65 sm:h-80 sm:w-80;
+    stroke: currentColor;
+    stroke-width: 1.45;
+  }
+
+  .section-flourish--secondary {
+    @apply h-40 w-40 text-sand-500/55 sm:h-56 sm:w-56;
+    stroke: currentColor;
+    stroke-width: 1.2;
+  }
+
+  .section-flourish--top-left {
+    top: -1.5rem;
+    left: -1.5rem;
+  }
+
+  .section-flourish--top-right {
+    top: -1.5rem;
+    right: -1.5rem;
+    transform: scaleX(-1);
+  }
+
+  .section-flourish--bottom-left {
+    bottom: -1.5rem;
+    left: -1.5rem;
+    transform: scaleY(-1);
+  }
+
+  .section-flourish--bottom-right {
+    right: -1.5rem;
+    bottom: -1.5rem;
+    transform: scale(-1);
+  }
+
+  .section-divider {
+    @apply pointer-events-none absolute inset-x-0 bottom-0 z-20 flex items-center justify-center gap-3 text-sand-500/80;
+  }
+
+  .section-divider span {
+    @apply h-px w-14 bg-current sm:w-24;
+  }
+
+  .section-divider svg {
+    @apply h-4 w-4;
   }
 }
 

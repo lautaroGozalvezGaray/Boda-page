@@ -12,7 +12,9 @@ export function formatLongDate(isoDate: string): string {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  }).format(date);
+  })
+    .format(date)
+    .replace(/ de (\d{4})$/, ' del $1');
 }
 
 /**

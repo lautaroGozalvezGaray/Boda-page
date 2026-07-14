@@ -85,7 +85,7 @@ Todo el contenido sale de este único archivo. **No hay datos hardcodeados en lo
 ### Nombres, fecha y hora
 
 ```ts
-coupleNames: { partnerOne: 'Lautaro', partnerTwo: 'Belén' },
+coupleNames: { partnerOne: 'Belén', partnerTwo: 'Lautaro' },
 eventDateISO: '2027-02-27T21:30:00-03:00', // formato ISO 8601, zona Argentina (único horario oficial del evento)
 eventTimeTitle: 'Recepción y Ceremonia Civil',
 eventTimeLabel: '21:30 hs',

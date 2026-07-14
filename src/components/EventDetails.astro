@@ -1,5 +1,7 @@
 ---
 import { formatLongDate } from '@/utils/formatDate';
+import SectionDecorations from '@/components/SectionDecorations.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
 
 interface Props {
   eventDateISO: string;
@@ -13,14 +15,18 @@ const { eventDateISO, eventTimeTitle, eventTimeLabel, venueName, address } = Ast
 const dateLabel = formatLongDate(eventDateISO);
 ---
 
-<section class="reveal bg-sand-50/60 px-6 py-20 sm:py-28" aria-labelledby="evento-titulo">
-  <div class="mx-auto flex max-w-2xl flex-col items-center gap-10 text-center">
-    <h2 id="evento-titulo" class="section-title">El evento</h2>
+<section
+  class="section-decorated reveal bg-sand-50/60 px-6 py-20 sm:py-28"
+  aria-labelledby="evento-titulo"
+>
+  <SectionDecorations corner="top-left" />
+  <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-10 text-center">
+    <SectionHeading id="evento-titulo" title="El evento" />
 
     <dl class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
       <div class="card-surface-hover flex flex-col items-center gap-1.5 p-5">
         <dt class="section-eyebrow">Fecha</dt>
-        <dd class="font-serif text-lg capitalize text-ink-800">{dateLabel}</dd>
+        <dd class="font-serif text-lg text-ink-800">{dateLabel}</dd>
       </div>
       <div class="card-surface-hover flex flex-col items-center gap-1.5 p-5">
         <dt class="section-eyebrow">{eventTimeTitle}</dt>

@@ -1,4 +1,6 @@
 ---
+import SectionDecorations from '@/components/SectionDecorations.astro';
+
 interface Props {
   src: string | null;
   alt: string;
@@ -7,9 +9,13 @@ interface Props {
 const { src, alt } = Astro.props;
 ---
 
-<section class="reveal flex justify-center bg-sand-50/60 px-6 py-20 sm:py-28" aria-label="Fotografía">
+<section
+  class="section-decorated reveal flex justify-center bg-sand-50/60 px-6 py-20 sm:py-28"
+  aria-label="Fotografía"
+>
+  <SectionDecorations corner="top-right" />
   <div
-    class="card-surface-hover relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl bg-sand-100 sm:max-w-md"
+    class="card-surface-hover relative z-10 aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl bg-sand-100 sm:max-w-md"
   >
     {
       src ? (

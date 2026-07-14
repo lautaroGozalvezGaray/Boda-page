@@ -1,4 +1,7 @@
 ---
+import SectionDecorations from '@/components/SectionDecorations.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -7,9 +10,13 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<section class="reveal bg-white px-6 py-20 sm:py-24" aria-labelledby="dresscode-titulo">
-  <div class="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-    <h2 id="dresscode-titulo" class="section-title">{title}</h2>
+<section
+  class="section-decorated reveal bg-white px-6 py-20 sm:py-24"
+  aria-labelledby="dresscode-titulo"
+>
+  <SectionDecorations corner="bottom-right" />
+  <div class="relative z-10 mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
+    <SectionHeading id="dresscode-titulo" title={title} />
     <p class="text-base leading-relaxed text-ink-600">{description}</p>
   </div>
 </section>

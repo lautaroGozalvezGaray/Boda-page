@@ -52,10 +52,8 @@ export interface WeddingConfig {
     city: string;
     /** Dirección exacta. */
     address: string;
-    /** Query usada para armar el link de Google Maps cuando no hay mapsUrl */
-    mapsQuery: string;
-    /** URL directa de Google Maps (ej: link corto compartido). Si existe, tiene prioridad sobre mapsQuery. */
-    mapsUrl?: string;
+    /** Destino completo usado para las indicaciones de Maps. */
+    mapsDestination: string;
   };
   whatsapp: {
     /**
@@ -113,8 +111,7 @@ const baseConfig: WeddingConfig = {
     name: 'Espacio Nikkei',
     city: 'Córdoba Capital',
     address: 'Celso Barrios 3500, X5000 Córdoba',
-    mapsQuery: 'Espacio Nikkei, Celso Barrios 3500, Córdoba, Argentina',
-    mapsUrl: 'https://share.google/XePuYWYYyEQOyi80Z',
+    mapsDestination: 'Espacio Nikkei, Celso Barrios 3500, Córdoba, Argentina',
   },
   whatsapp: {
     phoneNumber: '5493515952937',
@@ -162,7 +159,7 @@ const baseConfig: WeddingConfig = {
       'Su presencia es el mejor regalo que podemos recibir.\n\nSi además desean hacernos un obsequio para acompañarnos en esta nueva etapa, pueden hacerlo mediante una transferencia al siguiente alias.',
   },
   dressCode: {
-    title: 'Código de vestimenta',
+    title: 'Dress code',
     description: 'Elegante Sport.',
   },
   cover: {

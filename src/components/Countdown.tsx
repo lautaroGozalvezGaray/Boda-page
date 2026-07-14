@@ -11,11 +11,11 @@ interface UnitProps {
 
 function Unit({ value, label }: UnitProps) {
   return (
-    <div className="card-surface flex flex-col items-center gap-1 px-3 py-4 sm:px-4 sm:py-5">
-      <span className="font-serif text-3xl font-medium tabular-nums text-blush-700 sm:text-5xl">
+    <div className="card-surface flex flex-col items-center gap-1.5 px-3 py-4 sm:px-4 sm:py-5">
+      <span className="font-serif text-3xl font-semibold tabular-nums text-blush-700 sm:text-5xl">
         {value.toString().padStart(2, '0')}
       </span>
-      <span className="section-eyebrow text-[0.65rem]">{label}</span>
+      <span className="card-label">{label}</span>
     </div>
   );
 }

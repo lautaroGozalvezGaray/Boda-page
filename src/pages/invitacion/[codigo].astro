@@ -74,7 +74,7 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
         address={venue.address}
       >
         <div slot="actions" class="flex flex-wrap items-center justify-center gap-4">
-          <MapButton query={venue.mapsQuery} mapsUrl={venue.mapsUrl} />
+          <MapButton destination={venue.mapsDestination} />
           <AddToCalendarButton
             title={`Boda de ${coupleNames.partnerOne} y ${coupleNames.partnerTwo}`}
             description="Nos encantaría contar con tu presencia."

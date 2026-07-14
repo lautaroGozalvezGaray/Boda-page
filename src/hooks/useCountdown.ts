@@ -8,8 +8,8 @@ export interface CountdownValue {
   isPast: boolean;
 }
 
-function calculateCountdown(targetISO: string): CountdownValue {
-  const diffMs = new Date(targetISO).getTime() - Date.now();
+export function calculateCountdown(targetISO: string, nowMs: number = Date.now()): CountdownValue {
+  const diffMs = new Date(targetISO).getTime() - nowMs;
 
   if (diffMs <= 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0, isPast: true };

@@ -34,12 +34,12 @@ const surfaceClass = surface === 'sand' ? 'bg-sand-50/60' : 'bg-white';
       </div>
     </div>
 
-    <div class="card-surface flex w-full flex-col gap-6 p-6 text-left sm:p-8">
-      <h3 class="text-center font-serif text-xl text-ink-800">Datos para transferencia</h3>
+    <div class="card-surface flex w-full flex-col gap-7 p-6 text-left sm:p-8">
+      <h3 class="text-center font-serif text-2xl text-ink-800">Datos para transferencia</h3>
 
-      <div class="flex flex-col items-center gap-1 rounded-xl bg-blush-50/70 p-4 text-center">
-        <span class="section-eyebrow">Alias</span>
-        <span class="break-all font-serif text-2xl text-ink-800">{alias}</span>
+      <div class="flex flex-col items-center gap-2 rounded-xl border border-blush-100 bg-blush-50 p-5 text-center">
+        <span class="card-label">Alias</span>
+        <span class="card-value break-all text-2xl sm:text-3xl">{alias}</span>
       </div>
       <CopyButton
         client:visible
@@ -49,20 +49,20 @@ const surfaceClass = surface === 'sand' ? 'bg-sand-50/60' : 'bg-white';
         variant="ghost"
       />
 
-      <dl class="grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
-        <div class="flex flex-col gap-1">
-          <dt class="section-eyebrow">Banco</dt>
-          <dd class="text-sm text-ink-800">{bank}</dd>
+      <dl class="data-list grid grid-cols-1 gap-3 text-left sm:gap-4">
+        <div class="flex min-w-0 flex-col gap-1.5 rounded-xl border border-sand-100 bg-sand-50/50 p-4">
+          <dt class="card-label">Banco</dt>
+          <dd class="card-value-detail">{bank}</dd>
         </div>
-        <div class="flex flex-col gap-1">
-          <dt class="section-eyebrow">Titular</dt>
-          <dd class="text-sm text-ink-800">{accountHolder}</dd>
+        <div class="flex min-w-0 flex-col gap-1.5 rounded-xl border border-sand-100 bg-sand-50/50 p-4">
+          <dt class="card-label">Titular</dt>
+          <dd class="card-value-detail break-words">{accountHolder}</dd>
         </div>
       </dl>
 
-      <div class="flex flex-col gap-2">
-        <span class="section-eyebrow">CBU</span>
-        <span class="break-all font-mono text-sm text-ink-800">{cbu}</span>
+      <div class="data-cbu flex flex-col gap-3 rounded-xl border border-sand-100 bg-sand-50/50 p-4">
+        <span class="card-label">CBU</span>
+        <span class="break-all font-mono text-base font-medium tracking-wide text-ink-800">{cbu}</span>
         <CopyButton
           client:visible
           textToCopy={cbu}

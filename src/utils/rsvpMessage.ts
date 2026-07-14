@@ -1,46 +1,37 @@
 export interface RsvpMessageInput {
   partnerOne: string;
   partnerTwo: string;
-  responsible: string;
   attendees: string[];
   dietaryRestrictions?: string;
-  /** Código técnico de la invitación (ej: "a7km2"). Nunca revela el tipo de invitación. */
+  /** Código técnico de la invitación (ej: "a7km2"). */
   referenceCode: string;
 }
 
-/**
- * Construye el mensaje de confirmación de asistencia para WhatsApp
- * a partir de los datos ingresados en el formulario RSVP.
- * No persiste ni envía datos a ningún servidor: solo compone el texto.
- */
+/** Construye el mensaje de confirmación para WhatsApp sin enviar datos a un servidor. */
 export function buildRsvpMessage(input: RsvpMessageInput): string {
-  const { partnerOne, partnerTwo, responsible, attendees, dietaryRestrictions, referenceCode } =
-    input;
+  const { partnerOne, partnerTwo, attendees, dietaryRestrictions, referenceCode } = input;
+  const attendeesList = attendees.map((name) => `• ${name}`).join('\n');
+  const restrictions = dietaryRestrictions?.trim() || 'Ninguna';
 
-  const attendeesList = attendees.map((name) => `- ${name}`).join('\n');
-
-  const lines = [
+  return [
     `Hola ${partnerOne} y ${partnerTwo}.`,
     '',
     'Queremos confirmar nuestra asistencia al casamiento.',
     '',
-    'Responsable:',
-    responsible,
-    '',
-    'Cantidad de asistentes:',
-    String(attendees.length),
-    '',
     'Asistentes:',
     '',
     attendeesList,
-  ];
-
-  const trimmedRestrictions = dietaryRestrictions?.trim();
-  if (trimmedRestrictions) {
-    lines.push('', 'Restricciones alimentarias:', trimmedRestrictions);
-  }
-
-  lines.push('', 'Muchas gracias.', '', `Referencia: ${referenceCode.toUpperCase()}`);
-
-  return lines.join('\n');
+    '',
+    'Cantidad total:',
+    '',
+    String(attendees.length),
+    '',
+    'Restricciones alimentarias:',
+    '',
+    restrictions,
+    '',
+    'Muchas gracias.',
+    '',
+    `Referencia: ${referenceCode.toUpperCase()}`,
+  ].join('\n');
 }

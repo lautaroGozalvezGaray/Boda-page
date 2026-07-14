@@ -1,16 +1,21 @@
 ---
-import { buildMapsUrl } from '@/utils/links';
+import { buildGoogleMapsPlaceUrl } from '@/utils/links';
 
 interface Props {
-  query: string;
-  mapsUrl?: string;
+  destination: string;
 }
 
-const { query, mapsUrl: directMapsUrl } = Astro.props;
-const mapsUrl = directMapsUrl ?? buildMapsUrl(query);
+const { destination } = Astro.props;
+const mapsUrl = buildGoogleMapsPlaceUrl(destination);
 ---
 
-<a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary px-6 py-3">
+<a
+  href={mapsUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-map-destination={destination}
+  class="btn-secondary px-6 py-3"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -25,3 +30,17 @@ const mapsUrl = directMapsUrl ?? buildMapsUrl(query);
   </svg>
   Cómo llegar
 </a>
+
+<script>
+  import { buildAppleMapsPlaceUrl, isAppleMobileDevice } from '@/utils/links';
+
+  document.querySelectorAll<HTMLAnchorElement>('[data-map-destination]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const destination = link.dataset.mapDestination;
+
+      if (destination && isAppleMobileDevice(navigator.userAgent, navigator.maxTouchPoints)) {
+        link.href = buildAppleMapsPlaceUrl(destination);
+      }
+    });
+  });
+</script>

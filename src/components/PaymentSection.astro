@@ -1,9 +1,10 @@
 ---
 import type { EntryType, PricingPeriod } from '@/config/wedding';
-import PricingTable from '@/components/PricingTable.astro';
+import PricingTable from '@/components/PricingTable';
 import CopyButton from '@/components/CopyButton';
 import SectionDecorations from '@/components/SectionDecorations.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import { getCurrentPeriodIndex } from '@/utils/pricingPeriod';
 
 interface Props {
   entryType: EntryType;
@@ -18,6 +19,7 @@ interface Props {
 
 const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accountNumber } =
   Astro.props;
+const initialCurrentIndex = getCurrentPeriodIndex(pricingPeriods);
 ---
 
 <section
@@ -33,14 +35,19 @@ const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accoun
       </p>
     </div>
 
-    <PricingTable periods={pricingPeriods} entryType={entryType} />
+    <PricingTable
+      client:load
+      periods={pricingPeriods}
+      entryType={entryType}
+      initialCurrentIndex={initialCurrentIndex}
+    />
 
-    <div class="card-surface flex w-full flex-col gap-6 p-6 sm:p-8">
+    <div class="card-surface flex w-full flex-col gap-7 p-6 sm:p-8">
       <h3 class="font-serif text-xl text-ink-800">Información para realizar la transferencia</h3>
 
-      <div class="flex flex-col items-center gap-1 rounded-xl bg-blush-50/70 p-4">
-        <span class="section-eyebrow">Alias</span>
-        <span class="break-all font-serif text-2xl text-ink-800">{alias}</span>
+      <div class="flex flex-col items-center gap-2 rounded-xl border border-blush-100 bg-blush-50 p-5">
+        <span class="card-label">Alias</span>
+        <span class="card-value break-all text-2xl sm:text-3xl">{alias}</span>
       </div>
       <CopyButton
         client:visible
@@ -49,7 +56,7 @@ const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accoun
         successMessage="Alias copiado."
       />
 
-      <dl class="grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
+      <dl class="data-list grid grid-cols-1 gap-3 text-left sm:grid-cols-2 sm:gap-4">
         <div class="flex flex-col gap-1">
           <dt class="section-eyebrow">Banco</dt>
           <dd class="text-sm text-ink-800">{bank}</dd>
@@ -68,7 +75,7 @@ const { entryType, pricingPeriods, bank, accountHolder, cuit, alias, cbu, accoun
         </div>
       </dl>
 
-      <div class="flex flex-col gap-2">
+      <div class="data-cbu flex flex-col gap-3">
         <span class="section-eyebrow">CBU</span>
         <span class="break-all font-mono text-sm text-ink-800">{cbu}</span>
         <CopyButton

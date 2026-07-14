@@ -24,17 +24,17 @@ const dateLabel = formatLongDate(eventDateISO);
     <SectionHeading id="evento-titulo" title="El evento" />
 
     <dl class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
-      <div class="card-surface-hover flex flex-col items-center gap-1.5 p-5">
-        <dt class="section-eyebrow">Fecha</dt>
-        <dd class="font-serif text-lg text-ink-800">{dateLabel}</dd>
+      <div class="card-surface-hover flex flex-col items-center gap-2 p-6 sm:p-7">
+        <dt class="card-label">Fecha</dt>
+        <dd class="card-value">{dateLabel}</dd>
       </div>
-      <div class="card-surface-hover flex flex-col items-center gap-1.5 p-5">
-        <dt class="section-eyebrow">{eventTimeTitle}</dt>
-        <dd class="font-serif text-lg text-ink-800">{eventTimeLabel}</dd>
+      <div class="card-surface-hover flex flex-col items-center gap-2 p-6 sm:p-7">
+        <dt class="card-label">{eventTimeTitle}</dt>
+        <dd class="card-value">{eventTimeLabel}</dd>
       </div>
-      <div class="card-surface-hover flex flex-col items-center gap-1.5 p-5">
-        <dt class="section-eyebrow">Lugar</dt>
-        <dd class="font-serif text-lg text-ink-800">{venueName}</dd>
+      <div class="card-surface-hover flex flex-col items-center gap-2 p-6 sm:p-7">
+        <dt class="card-label">Lugar</dt>
+        <dd class="card-value">{venueName}</dd>
       </div>
     </dl>
 

@@ -1,0 +1,39 @@
+---
+import type { EntryType, PricingPeriod } from '@/config/wedding';
+import { formatCurrency } from '@/utils/formatCurrency';
+import { getCurrentPeriodIndex } from '@/utils/pricingPeriod';
+
+interface Props {
+  periods: PricingPeriod[];
+  entryType: EntryType;
+}
+
+const { periods, entryType } = Astro.props;
+const currentIndex = getCurrentPeriodIndex(periods);
+const amounts = periods.map((period) =>
+  entryType === 'reduced' ? period.reducedAmount : period.generalAmount,
+);
+---
+
+<div class="w-full" role="group" aria-label="Valores de la entrada por período">
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      periods.map((period, index) => (
+        <div
+          class:list={[
+            'card-surface-hover flex flex-col items-center gap-2 p-5 text-center',
+            index === currentIndex ? 'border-blush-300 bg-blush-50/60' : '',
+          ]}
+        >
+          <span class="section-eyebrow">{period.label}</span>
+          <span class="font-serif text-2xl text-ink-800">{formatCurrency(amounts[index])}</span>
+          {index === currentIndex && (
+            <span class="w-fit rounded-full bg-blush-100 px-3 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blush-700">
+              Vigente
+            </span>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,44 @@
+---
+interface Props {
+  src: string | null;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<section class="reveal flex justify-center bg-sand-50/60 px-6 py-20 sm:py-28" aria-label="Fotografía">
+  <div
+    class="card-surface-hover relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl bg-sand-100 sm:max-w-md"
+  >
+    {
+      src ? (
+        <img
+          src={src}
+          alt={alt}
+          class="h-full w-full object-cover"
+          loading="lazy"
+          width="480"
+          height="600"
+        />
+      ) : (
+        <div class="flex h-full w-full flex-col items-center justify-center gap-3 text-ink-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.2"
+            class="h-14 w-14"
+            aria-hidden="true"
+          >
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <circle cx="9" cy="10" r="2" />
+            <path d="M21 17l-5.5-5.5a2 2 0 0 0-2.8 0L3 21" />
+          </svg>
+          <p class="px-6 text-center text-sm">{alt}</p>
+        </div>
+      )
+    }
+  </div>
+</section>

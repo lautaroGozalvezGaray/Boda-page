@@ -1,0 +1,140 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Cover from '@/components/Cover.astro';
+import PhotoPlaceholder from '@/components/PhotoPlaceholder.astro';
+import Countdown from '@/components/Countdown';
+import EventDetails from '@/components/EventDetails.astro';
+import MapButton from '@/components/MapButton.astro';
+import AddToCalendarButton from '@/components/AddToCalendarButton.astro';
+import DressCode from '@/components/DressCode.astro';
+import PaymentSection from '@/components/PaymentSection.astro';
+import GiftsSection from '@/components/GiftsSection.astro';
+import RsvpForm from '@/components/RsvpForm';
+import ScrollHint from '@/components/ScrollHint';
+import ScrollReveal from '@/components/ScrollReveal.astro';
+import { getAllVariantCodes, getVariantByCode, weddingConfig } from '@/config/wedding';
+
+export function getStaticPaths() {
+  return getAllVariantCodes().map((codigo) => ({ params: { codigo } }));
+}
+
+const { codigo } = Astro.params;
+const variant = codigo ? getVariantByCode(codigo) : undefined;
+
+if (!variant) {
+  return Astro.redirect('/404');
+}
+
+const {
+  coupleNames,
+  eventDateISO,
+  eventTimeTitle,
+  eventTimeLabel,
+  venue,
+  whatsapp,
+  payment,
+  gifts,
+  dressCode,
+  cover,
+  photo,
+  seo,
+} = weddingConfig;
+const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
+---
+
+<Layout title={seo.title} description={seo.description} ogImage={seo.ogImage}>
+  <main>
+    <Cover
+      kicker={cover.kicker}
+      partnerOne={coupleNames.partnerOne}
+      partnerTwo={coupleNames.partnerTwo}
+      eventDateISO={eventDateISO}
+      ctaLabel={cover.ctaLabel}
+      ctaTargetId="detalle"
+    />
+    <ScrollHint client:load targetId="detalle" />
+
+    <div id="detalle">
+      <PhotoPlaceholder src={photo.src} alt={photo.alt} />
+
+      <section
+        class="reveal bg-white px-6 py-20 sm:py-28"
+        aria-labelledby="cuenta-regresiva-titulo"
+      >
+        <div class="mx-auto flex max-w-xl flex-col items-center gap-8 text-center">
+          <h2 id="cuenta-regresiva-titulo" class="section-title">Cuenta regresiva</h2>
+          <Countdown client:load targetISO={eventDateISO} />
+        </div>
+      </section>
+
+      <EventDetails
+        eventDateISO={eventDateISO}
+        eventTimeTitle={eventTimeTitle}
+        eventTimeLabel={eventTimeLabel}
+        venueName={venue.name}
+        address={venue.address}
+      >
+        <div slot="actions" class="flex flex-wrap items-center justify-center gap-4">
+          <MapButton query={venue.mapsQuery} mapsUrl={venue.mapsUrl} />
+          <AddToCalendarButton
+            title={`Boda de ${coupleNames.partnerOne} y ${coupleNames.partnerTwo}`}
+            description="Nos encantaría contar con tu presencia."
+            location={`${venue.name}, ${venue.city}`}
+            startISO={eventDateISO}
+          />
+        </div>
+      </EventDetails>
+
+      <DressCode title={dressCode.title} description={dressCode.description} />
+
+      {
+        variant.showPayment && variant.entryType && (
+          <PaymentSection
+            entryType={variant.entryType}
+            pricingPeriods={payment.pricingPeriods}
+            bank={payment.bank}
+            accountHolder={payment.accountHolder}
+            cuit={payment.cuit}
+            alias={payment.alias}
+            cbu={payment.cbu}
+            accountNumber={payment.accountNumber}
+          />
+        )
+      }
+
+      <section
+        class:list={[
+          'reveal flex flex-col items-center gap-8 px-6 py-20 pb-24 text-center sm:py-28',
+          rsvpSurfaceClass,
+        ]}
+        aria-labelledby="rsvp-titulo"
+      >
+        <div class="flex flex-col items-center gap-3">
+          <h2 id="rsvp-titulo" class="section-title">Te esperamos</h2>
+          <p class="max-w-md text-base text-ink-600">
+            Completá el formulario para confirmar tu asistencia. Te vamos a redirigir a WhatsApp
+            con el mensaje ya armado.
+          </p>
+        </div>
+        <RsvpForm
+          client:visible
+          phoneNumber={whatsapp.phoneNumber}
+          partnerOne={coupleNames.partnerOne}
+          partnerTwo={coupleNames.partnerTwo}
+          referenceCode={variant.code}
+        />
+      </section>
+
+      <GiftsSection
+        message={gifts.message}
+        bank={payment.bank}
+        accountHolder={payment.accountHolder}
+        alias={payment.alias}
+        cbu={payment.cbu}
+        surface={variant.showPayment ? 'sand' : 'white'}
+      />
+    </div>
+  </main>
+
+  <ScrollReveal />
+</Layout>

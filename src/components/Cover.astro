@@ -1,0 +1,51 @@
+---
+import { formatLongDate } from '@/utils/formatDate';
+
+interface Props {
+  kicker: string;
+  partnerOne: string;
+  partnerTwo: string;
+  eventDateISO: string;
+  ctaLabel: string;
+  ctaTargetId: string;
+}
+
+const { kicker, partnerOne, partnerTwo, eventDateISO, ctaLabel, ctaTargetId } = Astro.props;
+const dateLabel = formatLongDate(eventDateISO);
+---
+
+<header
+  class="relative flex min-h-[100svh] flex-col items-center justify-center gap-10 overflow-hidden bg-gradient-to-b from-sand-100 via-sand-50 to-blush-50 px-6 py-16 text-center sm:gap-12"
+>
+  <div
+    class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-blush-200/25 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-sand-300/25 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="flex animate-fade-in flex-col items-center gap-5">
+    <p class="font-accent text-lg italic text-blush-500 sm:text-xl">{kicker}</p>
+    <span class="h-px w-12 bg-blush-300" aria-hidden="true"></span>
+    <h1
+      class="font-serif text-5xl font-medium leading-[1.1] tracking-tight text-ink-800 sm:text-6xl md:text-7xl"
+    >
+      {partnerOne}
+      <span class="mx-1 text-blush-400">&amp;</span>
+      {partnerTwo}
+    </h1>
+    <p class="mt-1 text-sm capitalize tracking-wide text-ink-500 sm:text-base">{dateLabel}</p>
+  </div>
+
+  <a
+    href={`#${ctaTargetId}`}
+    class="btn-secondary animate-slide-up px-9 py-3 backdrop-blur-sm"
+    style="animation-delay: 0.3s"
+  >
+    {ctaLabel}
+  </a>
+</header>

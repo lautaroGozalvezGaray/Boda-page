@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  location: string;
+  startISO: string;
+}
+
+const { title, description, location, startISO } = Astro.props;
+---
+
+<button
+  type="button"
+  id="add-to-calendar-btn"
+  data-title={title}
+  data-description={description}
+  data-location={location}
+  data-start={startISO}
+  class="btn-secondary px-6 py-3"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    class="h-4 w-4"
+    aria-hidden="true"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+    <path d="M16 2v4M8 2v4M3 10h18"></path>
+  </svg>
+  Agregar al calendario
+</button>
+
+<script>
+  import { downloadIcsFile } from '@/utils/generateIcs';
+
+  const button = document.getElementById('add-to-calendar-btn');
+
+  button?.addEventListener('click', () => {
+    const { title, description, location, start } = button.dataset;
+    if (!title || !description || !location || !start) return;
+
+    downloadIcsFile(
+      {
+        title,
+        description,
+        location,
+        startISO: start,
+      },
+      'boda.ics',
+    );
+  });
+</script>

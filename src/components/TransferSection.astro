@@ -1,0 +1,67 @@
+---
+import CopyButton from '@/components/CopyButton';
+import SectionDecorations from '@/components/SectionDecorations.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+
+interface Props {
+  bank: string;
+  accountHolder: string;
+  cuit: string;
+  alias: string;
+  cbu: string;
+  accountNumber: string;
+}
+
+const { bank, accountHolder, cuit, alias, cbu, accountNumber } = Astro.props;
+---
+
+<section
+  class="section-decorated reveal reveal-delay-1 bg-white px-6 py-20 sm:py-28"
+  aria-labelledby="transferencia-titulo"
+>
+  <SectionDecorations corner="bottom-left" />
+  <div class="relative z-10 mx-auto flex max-w-xl flex-col items-center gap-8 text-center">
+    <div class="flex flex-col items-center gap-3">
+      <SectionHeading id="transferencia-titulo" title="Información para realizar la transferencia" />
+      <p class="max-w-md text-base leading-relaxed text-ink-600">
+        Para abonar la tarjeta, te dejamos los siguientes datos.
+      </p>
+    </div>
+
+    <div class="card-surface flex w-full flex-col gap-7 p-6 text-left sm:p-8">
+      <div class="flex flex-col items-center gap-2 rounded-xl border border-blush-100 bg-blush-50 p-5 text-center">
+        <span class="card-label">Alias</span>
+        <span class="card-value break-all text-2xl sm:text-3xl">{alias}</span>
+      </div>
+      <CopyButton client:visible textToCopy={alias} label="Copiar alias" successMessage="Alias copiado" />
+
+      <dl class="data-list grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+        <div>
+          <dt>Banco</dt>
+          <dd>{bank}</dd>
+        </div>
+        <div>
+          <dt>Titular</dt>
+          <dd class="break-words">{accountHolder}</dd>
+        </div>
+        <div>
+          <dt>Número de cuenta</dt>
+          <dd class="break-all">{accountNumber}</dd>
+        </div>
+        <div class="data-cbu flex flex-col gap-3">
+          <dt>CBU</dt>
+          <dd class="break-all font-mono text-sm text-ink-800">{cbu}</dd>
+          <CopyButton client:visible textToCopy={cbu} label="Copiar CBU" successMessage="CBU copiado" />
+        </div>
+      </dl>
+
+      <details class="rounded-xl border border-sand-100 bg-sand-50/50 p-4 text-left">
+        <summary class="cursor-pointer text-sm font-medium text-blush-700">Ver datos adicionales</summary>
+        <div class="mt-4 flex flex-col gap-1.5">
+          <span class="card-label">CUIT/CUIL</span>
+          <span class="card-value-detail">{cuit}</span>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>

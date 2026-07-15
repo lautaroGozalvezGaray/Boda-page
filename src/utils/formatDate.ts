@@ -2,11 +2,11 @@ const ARGENTINA_TIMEZONE = 'America/Argentina/Cordoba';
 
 /**
  * Formatea una fecha ISO a un string legible en español, zona horaria Argentina.
- * Ej: "sábado, 14 de noviembre de 2026"
+ * Ej: "Sábado 14 de noviembre de 2026"
  */
 export function formatLongDate(isoDate: string): string {
   const date = new Date(isoDate);
-  return new Intl.DateTimeFormat('es-AR', {
+  const formatted = new Intl.DateTimeFormat('es-AR', {
     timeZone: ARGENTINA_TIMEZONE,
     weekday: 'long',
     day: 'numeric',
@@ -14,7 +14,9 @@ export function formatLongDate(isoDate: string): string {
     year: 'numeric',
   })
     .format(date)
-    .replace(/ de (\d{4})$/, ' del $1');
+    .replace(', ', ' ');
+
+  return `${formatted.charAt(0).toUpperCase()}${formatted.slice(1)}`;
 }
 
 /**

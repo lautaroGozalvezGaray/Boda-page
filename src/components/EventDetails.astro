@@ -7,11 +7,9 @@ interface Props {
   eventDateISO: string;
   eventTimeTitle: string;
   eventTimeLabel: string;
-  venueName: string;
-  address: string;
 }
 
-const { eventDateISO, eventTimeTitle, eventTimeLabel, venueName, address } = Astro.props;
+const { eventDateISO, eventTimeTitle, eventTimeLabel } = Astro.props;
 const dateLabel = formatLongDate(eventDateISO);
 ---
 
@@ -20,10 +18,10 @@ const dateLabel = formatLongDate(eventDateISO);
   aria-labelledby="evento-titulo"
 >
   <SectionDecorations corner="top-left" />
-  <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-10 text-center">
+  <div class="relative z-10 mx-auto flex max-w-xl flex-col items-center gap-10 text-center">
     <SectionHeading id="evento-titulo" title="El evento" />
 
-    <dl class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
+    <dl class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
       <div class="card-surface-hover flex flex-col items-center gap-2 p-6 sm:p-7">
         <dt class="card-label">Fecha</dt>
         <dd class="card-value">{dateLabel}</dd>
@@ -32,17 +30,6 @@ const dateLabel = formatLongDate(eventDateISO);
         <dt class="card-label">{eventTimeTitle}</dt>
         <dd class="card-value">{eventTimeLabel}</dd>
       </div>
-      <div class="card-surface-hover flex flex-col items-center gap-2 p-6 sm:p-7">
-        <dt class="card-label">Lugar</dt>
-        <dd class="card-value">{venueName}</dd>
-      </div>
     </dl>
-
-    <div class="flex flex-col items-center gap-1.5">
-      <span class="section-eyebrow">Dirección</span>
-      <p class="text-sm tracking-wide text-ink-500">{address}</p>
-    </div>
-
-    <slot name="actions" />
   </div>
 </section>

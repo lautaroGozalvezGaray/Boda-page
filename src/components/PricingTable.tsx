@@ -45,7 +45,7 @@ export default function PricingTable({
     <div
       className="card-surface w-full overflow-hidden"
       role="group"
-      aria-label="Valores de la entrada por período"
+      aria-label="Valor de la tarjeta por período"
     >
       <table className="w-full border-collapse text-left">
         <thead className="bg-sand-100/70">

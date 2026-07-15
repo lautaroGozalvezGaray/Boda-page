@@ -7,6 +7,7 @@ interface RsvpFormProps {
   partnerOne: string;
   partnerTwo: string;
   referenceCode: string;
+  showTransferNotice?: boolean;
 }
 
 interface Attendee {
@@ -25,6 +26,7 @@ export default function RsvpForm({
   partnerOne,
   partnerTwo,
   referenceCode,
+  showTransferNotice = false,
 }: RsvpFormProps) {
   const nextAttendeeId = useRef(1);
   const [attendees, setAttendees] = useState<Attendee[]>([
@@ -230,15 +232,18 @@ export default function RsvpForm({
         Confirmar por WhatsApp
       </button>
 
-      <p
-        role="status"
-        aria-live="polite"
-        className={`text-center text-sm text-blush-700 transition-opacity duration-500 ${
-          successMessage ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        Se abrió WhatsApp con tu mensaje. ¡Gracias por confirmar!
-      </p>
+      {successMessage && (
+        <p role="status" aria-live="polite" className="text-center text-sm leading-relaxed text-blush-700">
+          Se abrió WhatsApp con tu mensaje. ¡Gracias por confirmar!
+          {showTransferNotice && (
+            <>
+              {' '}
+              Una vez enviada la confirmación, podés realizar la transferencia utilizando los datos
+              que figuran a continuación.
+            </>
+          )}
+        </p>
+      )}
     </form>
   );
 }

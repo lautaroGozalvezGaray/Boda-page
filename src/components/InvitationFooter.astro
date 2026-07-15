@@ -1,0 +1,15 @@
+---
+interface Props {
+  partnerOne: string;
+  partnerTwo: string;
+}
+
+const { partnerOne, partnerTwo } = Astro.props;
+---
+
+<footer class="bg-white px-6 py-10 text-center text-ink-500">
+  <div class="mx-auto flex max-w-md flex-col items-center gap-4">
+    <span class="h-px w-20 bg-sand-300" aria-hidden="true"></span>
+    <p class="font-serif text-xl text-ink-700">{partnerOne} &amp; {partnerTwo}</p>
+  </div>
+</footer>

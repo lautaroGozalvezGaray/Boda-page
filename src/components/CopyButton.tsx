@@ -45,13 +45,11 @@ export default function CopyButton({
         </svg>
         {label}
       </button>
-      <span
-        role="status"
-        aria-live="polite"
-        className={`text-sm text-blush-700 transition-opacity duration-300 ${copied ? 'opacity-100' : 'opacity-0'}`}
-      >
-        {successMessage}
-      </span>
+      {copied && (
+        <span role="status" aria-live="polite" className="text-sm text-blush-700">
+          {successMessage}
+        </span>
+      )}
     </div>
   );
 }

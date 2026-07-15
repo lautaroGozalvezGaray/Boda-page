@@ -3,13 +3,15 @@ import Layout from '@/layouts/Layout.astro';
 import Cover from '@/components/Cover.astro';
 import Countdown from '@/components/Countdown';
 import EventDetails from '@/components/EventDetails.astro';
-import MapButton from '@/components/MapButton.astro';
-import AddToCalendarButton from '@/components/AddToCalendarButton.astro';
+import LocationSection from '@/components/LocationSection.astro';
 import DressCode from '@/components/DressCode.astro';
 import PaymentSection from '@/components/PaymentSection.astro';
+import TransferSection from '@/components/TransferSection.astro';
 import GiftsSection from '@/components/GiftsSection.astro';
+import InvitationFooter from '@/components/InvitationFooter.astro';
 import RsvpForm from '@/components/RsvpForm';
 import ScrollHint from '@/components/ScrollHint';
+import MusicPlayer from '@/components/MusicPlayer';
 import ScrollReveal from '@/components/ScrollReveal.astro';
 import SectionDecorations from '@/components/SectionDecorations.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
@@ -39,7 +41,7 @@ const {
   cover,
   seo,
 } = weddingConfig;
-const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
+const rsvpSurfaceClass = variant.showPayment ? 'bg-sand-50/60' : 'bg-white';
 ---
 
 <Layout title={seo.title} description={seo.description} ogImage={seo.ogImage}>
@@ -53,6 +55,7 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
       ctaTargetId="detalle"
     />
     <ScrollHint client:load targetId="detalle" />
+    <MusicPlayer client:load />
 
     <div id="detalle">
       <section
@@ -70,19 +73,17 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
         eventDateISO={eventDateISO}
         eventTimeTitle={eventTimeTitle}
         eventTimeLabel={eventTimeLabel}
+      />
+
+      <LocationSection
         venueName={venue.name}
         address={venue.address}
-      >
-        <div slot="actions" class="flex flex-wrap items-center justify-center gap-4">
-          <MapButton destination={venue.mapsDestination} />
-          <AddToCalendarButton
-            title={`Boda de ${coupleNames.partnerOne} y ${coupleNames.partnerTwo}`}
-            description="Nos encantaría contar con tu presencia."
-            location={`${venue.name}, ${venue.city}`}
-            startISO={eventDateISO}
-          />
-        </div>
-      </EventDetails>
+        destination={venue.mapsDestination}
+        calendarTitle={`Boda de ${coupleNames.partnerOne} y ${coupleNames.partnerTwo}`}
+        calendarDescription="Nos encantaría contar con tu presencia."
+        calendarLocation={`${venue.name}, ${venue.city}`}
+        eventDateISO={eventDateISO}
+      />
 
       <DressCode title={dressCode.title} description={dressCode.description} />
 
@@ -91,12 +92,6 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
           <PaymentSection
             entryType={variant.entryType}
             pricingPeriods={payment.pricingPeriods}
-            bank={payment.bank}
-            accountHolder={payment.accountHolder}
-            cuit={payment.cuit}
-            alias={payment.alias}
-            cbu={payment.cbu}
-            accountNumber={payment.accountNumber}
           />
         )
       }
@@ -108,7 +103,7 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
         ]}
         aria-labelledby="rsvp-titulo"
       >
-        <SectionDecorations corner="bottom-left" />
+        <SectionDecorations corner={variant.showPayment ? 'top-left' : 'bottom-left'} />
         <div class="relative z-10 flex flex-col items-center gap-3">
           <SectionHeading id="rsvp-titulo" title="Te esperamos" />
           <p class="max-w-md text-base text-ink-600">
@@ -123,9 +118,23 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
             partnerOne={coupleNames.partnerOne}
             partnerTwo={coupleNames.partnerTwo}
             referenceCode={variant.code}
+            showTransferNotice={variant.showPayment}
           />
         </div>
       </section>
+
+      {
+        variant.showPayment && (
+          <TransferSection
+            bank={payment.bank}
+            accountHolder={payment.accountHolder}
+            cuit={payment.cuit}
+            alias={payment.alias}
+            cbu={payment.cbu}
+            accountNumber={payment.accountNumber}
+          />
+        )
+      }
 
       <GiftsSection
         message={gifts.message}
@@ -133,8 +142,9 @@ const rsvpSurfaceClass = variant.showPayment ? 'bg-white' : 'bg-sand-50/60';
         accountHolder={payment.accountHolder}
         alias={payment.alias}
         cbu={payment.cbu}
-        surface={variant.showPayment ? 'sand' : 'white'}
+        surface="sand"
       />
+      <InvitationFooter partnerOne={coupleNames.partnerOne} partnerTwo={coupleNames.partnerTwo} />
     </div>
   </main>
 

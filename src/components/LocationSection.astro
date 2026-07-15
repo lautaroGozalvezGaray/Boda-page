@@ -1,0 +1,48 @@
+---
+import MapButton from '@/components/MapButton.astro';
+import AddToCalendarButton from '@/components/AddToCalendarButton.astro';
+import SectionDecorations from '@/components/SectionDecorations.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+
+interface Props {
+  venueName: string;
+  address: string;
+  destination: string;
+  calendarTitle: string;
+  calendarDescription: string;
+  calendarLocation: string;
+  eventDateISO: string;
+}
+
+const {
+  venueName,
+  address,
+  destination,
+  calendarTitle,
+  calendarDescription,
+  calendarLocation,
+  eventDateISO,
+} = Astro.props;
+---
+
+<section class="section-decorated reveal bg-white px-6 py-20 sm:py-28" aria-labelledby="ubicacion-titulo">
+  <SectionDecorations corner="bottom-right" />
+  <div class="relative z-10 mx-auto flex max-w-xl flex-col items-center gap-8 text-center">
+    <SectionHeading id="ubicacion-titulo" title="Ubicación" />
+    <div class="card-surface flex w-full flex-col items-center gap-3 p-6 sm:p-8">
+      <span class="section-eyebrow">Lugar</span>
+      <p class="card-value">{venueName}</p>
+      <span class="section-eyebrow mt-2">Dirección</span>
+      <p class="text-base leading-relaxed text-ink-600">{address}</p>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <MapButton destination={destination} />
+      <AddToCalendarButton
+        title={calendarTitle}
+        description={calendarDescription}
+        location={calendarLocation}
+        startISO={eventDateISO}
+      />
+    </div>
+  </div>
+</section>
